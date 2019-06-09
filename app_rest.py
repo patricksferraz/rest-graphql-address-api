@@ -31,10 +31,10 @@ def index():
 @app.route("/state")
 def state():
     cur.execute(
-        # """
-        # SELECT *
-        # FROM planet_osm_line line WHERE name LIKE '%Bairro%' LIMIT 10;
-        # """
+        """
+        SELECT *
+        FROM planet_osm_line line WHERE name LIKE '%Bairro%' LIMIT 10;
+        """
     )
     result = cur.fetchall()
     return jsonify(result)

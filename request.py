@@ -15,6 +15,6 @@ print("{")
 root = requests.get(f"{URL}", headers=headers, params=payload["root"])
 print('"Balance":\n{},'.format(root.json()))
 
-street = requests.get(f"{URL}/street", headers=headers, params=payload["root"])
+street = requests.get(f"{URL}/state", headers=headers, params=payload["root"])
 print('"Street":\n{},'.format(street.json()))
 print("}")
