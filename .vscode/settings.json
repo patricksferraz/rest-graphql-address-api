@@ -1,0 +1,15 @@
+{
+    "python.pythonPath": "/opt/anaconda3/envs/rest-graphql-osm-api/bin/python",
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 30,
+            "database": "gis",
+            "dialect": "PostgreSQL",
+            "name": "osm",
+            "password": "mysecretpass",
+            "port": 5432,
+            "server": "172.20.0.2",
+            "username": "postgres"
+        }
+    ]
+}
