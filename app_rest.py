@@ -1,12 +1,13 @@
 from flask import Flask, jsonify
 from postgres import connect
 
+# app initialization
 app = Flask(__name__)
 con = connect()
 cur = con.cursor()
 # con.close()
 
-
+# Routes
 @app.route("/")
 def index():
     return jsonify(api_name="rest-osm", version="1.0", author="Patrick Ferraz")
