@@ -9,10 +9,11 @@ def tables(path_in: str, struct_file: dict, con: connect):
         for key in keys:
             print("[INFO] Creating table {}".format(key))
             schema = struct_file[key]
+            values = schema.keys()
 
             SQL = "CREATE TABLE {} (".format(key)
-            for value in schema:
-                SQL += value
+            for value in values:
+                SQL += "{} {}".format(value, schema[value])
             SQL += ");"
 
             cur.execute(SQL)

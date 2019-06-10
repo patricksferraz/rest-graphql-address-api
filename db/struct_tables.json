@@ -1,19 +1,19 @@
 {
-    "estado": [
-        "id INT NOT NULL PRIMARY KEY,",
-        "nome TEXT NOT NULL,",
-        "singla TEXT NOT NULL"
-    ],
-    "cidade": [
-        "id INT NOT NULL PRIMARY KEY,",
-        "nome TEXT NOT NULL,",
-        "id_estado INT NOT NULL REFERENCES estado(id)"
-    ],
-    "ceps": [
-        "cep INT NOT NULL PRIMARY KEY,",
-        "logradouro TEXT NOT NULL,",
-        "bairro TEXT NOT NULL,",
-        "id_cidade INT NOT NULL REFERENCES cidade(id),",
-        "id_estado INT NOT NULL REFERENCES estado(id)"
-    ]
+    "estado": {
+        "id": "INT NOT NULL PRIMARY KEY,",
+        "nome": "TEXT NOT NULL,",
+        "singla": "TEXT NOT NULL"
+    },
+    "cidade": {
+        "id": "INT NOT NULL PRIMARY KEY,",
+        "nome": "TEXT NOT NULL,",
+        "id_estado": "INT NOT NULL REFERENCES estado(id)"
+    },
+    "ceps": {
+        "cep": "INT NOT NULL PRIMARY KEY,",
+        "logradouro": "TEXT NOT NULL,",
+        "bairro": "TEXT NOT NULL,",
+        "id_cidade": "INT NOT NULL REFERENCES cidade(id),",
+        "id_estado": "INT NOT NULL REFERENCES estado(id)"
+    }
 }
