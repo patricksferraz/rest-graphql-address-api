@@ -8,9 +8,12 @@ POSTGRES_DB = os.environ["POSTGRES_DB"]
 
 
 def connect():
-    return psycopg2.connect(
-        host=POSTGRES_URL,
-        database=POSTGRES_DB,
-        user=POSTGRES_USER,
-        password=POSTGRES_PW,
-    )
+    try:
+        return psycopg2.connect(
+            host=POSTGRES_URL,
+            database=POSTGRES_DB,
+            user=POSTGRES_USER,
+            password=POSTGRES_PW,
+        )
+    except Exception as e:
+        return e
