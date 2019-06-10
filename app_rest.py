@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from postgres import connect
+from db.postgres import connect
 
 # app initialization
 app = Flask(__name__)
