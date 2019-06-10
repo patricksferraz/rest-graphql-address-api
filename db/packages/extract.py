@@ -21,7 +21,7 @@ def extract(path_in: str, path_out: str) -> None:
         for z in zips:
             file_zip = "{}/{}/{}".format(path_in, d, z)
 
-            print("[INFO] Extract: {}".format(file_zip))
+            print("[INFO] Extracting: {}".format(file_zip))
 
             zf = ZipFile(file_zip, "r")
             zf.extractall(path_out)
