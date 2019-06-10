@@ -1,2 +1,0 @@
-docker run -e POSTGRES_PASSWORD=mysecretpass --network=postgres-network -d patricksferraz/postgres-osm2pgsql:1.0
-docker run -p 80:80 -e "PGADMIN_DEFAULT_EMAIL=patricksferraz" -e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" -d dpage/pgadmin4
