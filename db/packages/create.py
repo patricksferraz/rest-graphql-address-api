@@ -7,6 +7,7 @@ def tables(path_in: str, struct_file: dict, con: connect):
 
         keys = struct_file.keys()
         for key in keys:
+            print("[INFO] Creating table {}".format(key))
             schema = struct_file[key]
 
             SQL = "CREATE TABLE {} (".format(key)
