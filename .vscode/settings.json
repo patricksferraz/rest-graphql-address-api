@@ -11,5 +11,6 @@
             "server": "172.18.0.2",
             "username": "postgres"
         }
-    ]
+    ],
+    "python.analysis.disabled": ["unresolved-import"]
 }
