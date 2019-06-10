@@ -3,12 +3,12 @@
     "sqltools.connections": [
         {
             "connectionTimeout": 30,
-            "database": "gis",
+            "database": "address",
             "dialect": "PostgreSQL",
-            "name": "osm",
+            "name": "address",
             "password": "mysecretpass",
             "port": 5432,
-            "server": "172.20.0.2",
+            "server": "172.18.0.2",
             "username": "postgres"
         }
     ]

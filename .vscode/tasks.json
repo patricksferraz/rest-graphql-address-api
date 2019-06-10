@@ -12,6 +12,22 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "python-gen",
+            "type": "shell",
+            "command": "/opt/anaconda3/envs/${workspaceFolderBasename}/bin/python",
+            "args": [
+                "${file}",
+                "-p",
+                "db/tables",
+                "-s",
+                "db/struct_tables.json"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
