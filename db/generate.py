@@ -68,17 +68,17 @@ tuples({"estado": structure["estado"]}, states.values, "db/sqls/states.sql")
 
 # Adds tuples of cities
 path_tables_files.remove("db/preprocessing/cities.csv")
-states = pandas.read_csv(
+cities = pandas.read_csv(
     "db/preprocessing/cities.csv", delimiter=",", header=None
 )
-tuples({"cidade": structure["cidade"]}, states.values, "db/sqls/cities.sql")
+tuples({"cidade": structure["cidade"]}, cities.values, "db/sqls/cities.sql")
 
 # Adds tuples of places
 for ptf in path_tables_files:
-    states = pandas.read_csv(ptf, delimiter=",", header=None)
+    places = pandas.read_csv(ptf, delimiter=",", header=None)
     out = ptf.split("/")[-1]
     tuples(
-        {"place": structure["place"]},
-        states.values,
+        {"logradouro": structure["logradouro"]},
+        places.values,
         "db/sqls/{}.sql".format(out[:-4]),
     )
