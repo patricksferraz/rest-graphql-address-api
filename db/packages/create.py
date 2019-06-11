@@ -1,6 +1,16 @@
-def tables(path_in: str, struct_file: dict, path_out: str):
+from psycopg2 import connect
+import re
+
+
+def _clean(value: str) -> str:
+    if not isinstance(value, str):
+        return value
+    return re.sub(r"[']", "''", value)
+
+
+def tables(path_in: str, struct_file: dict, con: connect):
     try:
-        out = open(path_out, "w")
+        cur = con.cursor()
 
         keys = struct_file.keys()
         for key in keys:
@@ -13,20 +23,21 @@ def tables(path_in: str, struct_file: dict, path_out: str):
                 SQL += "{} {}".format(field, schema[field])
             SQL += ");\n"
 
-            out.write(SQL)
-        out.close()
+            cur.execute(SQL)
+        con.commit()
 
     except Exception as e:
         print("[ERROR] {}".format(e))
+        con.rollback()
         return e
 
 
-def tuples(struct_file: dict, tuples: list, path_out: str):
+def tuples(struct_file: dict, tuples: list, con: connect):
     try:
-        out = open(path_out, "w")
+        cur = con.cursor()
         key = list(struct_file.keys())[0]
 
-        print("[INFO] Creating tuples for {}".format(key))
+        print("[INFO] Iserting tuples in {}".format(key))
         schema = struct_file[key]
         fields = schema.keys()
         len_fields = len(fields)
@@ -45,15 +56,16 @@ def tuples(struct_file: dict, tuples: list, path_out: str):
             SQL += "VALUES ("
             for idx, value in enumerate(tuple):
                 SQL += (
-                    "'{}',".format(value)
+                    "'{}',".format(_clean(value))
                     if idx < len_tuple - 1
-                    else "'{}'".format(value)
+                    else "'{}'".format(_clean(value))
                 )
-            SQL += ");\n"
+            SQL += ")"
 
-            out.write(SQL)
-        out.close()
+            cur.execute(SQL)
+        con.commit()
 
     except Exception as e:
         print("[ERROR] {}".format(e))
+        con.rollback()
         return e
