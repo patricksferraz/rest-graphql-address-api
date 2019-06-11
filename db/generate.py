@@ -1,10 +1,10 @@
 from packages.extract import extract
 from packages.create import tables, tuples
-from postgres import connect
 import subprocess
 import argparse
 import pandas
 import json
+import os
 
 
 # construct the argument parser and parse the arguments
@@ -37,12 +37,14 @@ path_out = "{}/preprocessing".format(path_out)
 # EXTRAXT ZIP FILES
 extract(args["zip_tables"], path_out)
 
-
-con = connect()
+try:
+    os.mkdir("db/sqls")
+except Exception:
+    pass
 
 # CREATE TABLES
 structure = json.loads(open(args["file_structure"], "r").read())
-tables(path_out, structure, con)
+tables(path_out, structure, "db/sqls/tables.sql")
 
 
 # Get path where is the tables folder
@@ -62,18 +64,21 @@ path_tables_files.remove("db/preprocessing/states.csv")
 states = pandas.read_csv(
     "db/preprocessing/states.csv", delimiter=",", header=None
 )
-tuples({"estado": structure["estado"]}, states.values, con)
+tuples({"estado": structure["estado"]}, states.values, "db/sqls/states.sql")
 
 # Adds tuples of cities
 path_tables_files.remove("db/preprocessing/cities.csv")
 states = pandas.read_csv(
     "db/preprocessing/cities.csv", delimiter=",", header=None
 )
-tuples({"cidade": structure["cidade"]}, states.values, con)
+tuples({"cidade": structure["cidade"]}, states.values, "db/sqls/cities.sql")
 
 # Adds tuples of places
 for ptf in path_tables_files:
     states = pandas.read_csv(ptf, delimiter=",", header=None)
-    tuples({"place": structure["place"]}, states.values, con)
-
-con.close()
+    out = ptf.split("/")[-1]
+    tuples(
+        {"place": structure["place"]},
+        states.values,
+        "db/sqls/{}.sql".format(out[:-4]),
+    )
