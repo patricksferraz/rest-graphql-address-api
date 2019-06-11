@@ -19,10 +19,12 @@
             "command": "/opt/anaconda3/envs/${workspaceFolderBasename}/bin/python",
             "args": [
                 "${file}",
-                "-p",
+                "-z",
                 "db/tables",
                 "-s",
-                "db/struct_tables.json"
+                "db/struct_tables.json",
+                "-t",
+                "db/preprocessing"
             ],
             "group": {
                 "kind": "build",

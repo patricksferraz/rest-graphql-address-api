@@ -1,18 +1,19 @@
 from packages.extract import extract
-from packages.create import tables
+from packages.create import tables, tuples
 from postgres import connect
+import subprocess
 import argparse
+import pandas
 import json
 
-# import re
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument(
-    "-p",
-    "--path-tables",
+    "-z",
+    "--zip-tables",
     required=True,
-    help="path to input tables of database",
+    help="path to input tables of database zip",
 )
 ap.add_argument(
     "-s",
@@ -20,34 +21,59 @@ ap.add_argument(
     required=True,
     help="path to input file with database structure",
 )
+ap.add_argument(
+    "-t",
+    "--path-tables",
+    required=True,
+    help="path to input folder with database tables in csv",
+)
 args = vars(ap.parse_args())
 
 # generates the path for output
-path_out = args["path_tables"].split("/")[:-1]
+path_out = args["zip_tables"].split("/")[:-1]
 path_out = "/".join(path_out)
 path_out = "{}/preprocessing".format(path_out)
 
-# Extract zip files
-extract(args["path_tables"], path_out)
+# EXTRAXT ZIP FILES
+extract(args["zip_tables"], path_out)
 
-#
+
 con = connect()
+
+# CREATE TABLES
 structure = json.loads(open(args["file_structure"], "r").read())
 tables(path_out, structure, con)
 
-# if re.search(exclude, d) is None:
-# f_in = "{mdir}/{dirs}/{dirs}.py".format(mdir=file, dirs=d)
-# f_out = "{}/{}/.out".format(file, d)
-# param = "<{}/{}/in".format(file, d)
-# cmd = "python3 {} {}".format(f_in, param)
 
-# buffer = open(f_out, "w")
-# subprocess.call([cmd], stdout=buffer, shell=True)
-# buffer.close()
+# Get path where is the tables folder
+tables_folder = args["path_tables"]
+# Get all
+tables_files = subprocess.os.listdir(tables_folder)
+tables_files = list(filter(lambda x: x.split(".")[-1] == "csv", tables_files))
+# Get all path of tables
+path_tables_files = list(
+    map(lambda x: "{}/{}".format(tables_folder, x), tables_files)
+)
 
-# buffer_result = open(f_out, "r")
-# result = buffer_result.read()
 
-# f_expected = "{}/{}/expected".format(file, d)
-# buffer_expected = open(f_expected, "r")
-# expected = buffer_expected.read()
+# ADDS TUPLES
+# Adds tuples of states
+path_tables_files.remove("db/preprocessing/states.csv")
+states = pandas.read_csv(
+    "db/preprocessing/states.csv", delimiter=",", header=None
+)
+tuples({"estado": structure["estado"]}, states.values, con)
+
+# Adds tuples of cities
+path_tables_files.remove("db/preprocessing/cities.csv")
+states = pandas.read_csv(
+    "db/preprocessing/cities.csv", delimiter=",", header=None
+)
+tuples({"cidade": structure["cidade"]}, states.values, con)
+
+# Adds tuples of places
+for ptf in path_tables_files:
+    states = pandas.read_csv(ptf, delimiter=",", header=None)
+    tuples({"place": structure["place"]}, states.values, con)
+
+con.close()
