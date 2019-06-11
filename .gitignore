@@ -2,3 +2,4 @@ brazil-latest.osm.pbf
 **__pycache__
 db/preprocessing
 db/sqls
+.reset.sql
