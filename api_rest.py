@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from db.postgres import connect
 from models.rest import get_state
-from utils.rest import state_format
+from utils.formats import state_format
 
 # app initialization
 app = Flask(__name__)
