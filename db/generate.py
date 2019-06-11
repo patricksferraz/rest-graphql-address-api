@@ -33,7 +33,7 @@ args = vars(ap.parse_args())
 # generates the path for output
 path_out = args["zip_tables"].split("/")[:-1]
 path_out = "/".join(path_out)
-path_out = "{}/preprocessing".format(path_out)
+path_out = f"{path_out}/preprocessing"
 
 
 con = connect()
@@ -53,9 +53,7 @@ tables_folder = args["path_tables"]
 tables_files = subprocess.os.listdir(tables_folder)
 tables_files = list(filter(lambda x: x.split(".")[-1] == "csv", tables_files))
 # Get all path of tables
-path_tables_files = list(
-    map(lambda x: "{}/{}".format(tables_folder, x), tables_files)
-)
+path_tables_files = list(map(lambda x: f"{tables_folder}/{x}", tables_files))
 
 
 # ADDS TUPLES

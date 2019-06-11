@@ -14,20 +14,20 @@ def tables(path_in: str, struct_file: dict, con: connect):
 
         keys = struct_file.keys()
         for key in keys:
-            print("[INFO] Creating table {}".format(key))
+            print(f"[INFO] Creating table {key}")
             schema = struct_file[key]
             fields = schema.keys()
 
-            SQL = "CREATE TABLE {} (".format(key)
+            SQL = f"CREATE TABLE {key} ("
             for field in fields:
-                SQL += "{} {}".format(field, schema[field])
+                SQL += f"{field} {schema[field]}"
             SQL += ");\n"
 
             cur.execute(SQL)
         con.commit()
 
     except Exception as e:
-        print("[ERROR] {}".format(e))
+        print(f"[ERROR] {e}")
         con.rollback()
         return e
 
@@ -37,28 +37,24 @@ def tuples(struct_file: dict, tuples: list, con: connect):
         cur = con.cursor()
         key = list(struct_file.keys())[0]
 
-        print("[INFO] Iserting tuples in {}".format(key))
+        print(f"[INFO] Iserting tuples in {key}")
         schema = struct_file[key]
         fields = schema.keys()
         len_fields = len(fields)
 
         for tuple in tuples:
-            SQL = "INSERT INTO {} (".format(key)
+            SQL = f"INSERT INTO {key} ("
             for idx, field in enumerate(fields):
-                SQL += (
-                    "{},".format(field)
-                    if idx < len_fields - 1
-                    else "{}".format(field)
-                )
+                SQL += f"{field}," if idx < len_fields - 1 else f"{field}"
             SQL += ") "
 
             len_tuple = len(tuple)
             SQL += "VALUES ("
             for idx, value in enumerate(tuple):
                 SQL += (
-                    "'{}',".format(_clean(value))
+                    f"'{_clean(value)}',"
                     if idx < len_tuple - 1
-                    else "'{}'".format(_clean(value))
+                    else f"'{_clean(value)}'"
                 )
             SQL += ")"
 
@@ -66,6 +62,6 @@ def tuples(struct_file: dict, tuples: list, con: connect):
         con.commit()
 
     except Exception as e:
-        print("[ERROR] {}".format(e))
+        print(f"[ERROR] {e}")
         con.rollback()
         return e
