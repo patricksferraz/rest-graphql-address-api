@@ -3,3 +3,4 @@ brazil-latest.osm.pbf
 db/preprocessing
 db/sqls
 .reset.sql
+.out.json

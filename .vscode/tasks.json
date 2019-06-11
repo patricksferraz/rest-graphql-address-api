@@ -7,7 +7,7 @@
             "label": "python-exec",
             "type": "shell",
             "command": "/opt/anaconda3/envs/${workspaceFolderBasename}/bin/python",
-            "args": ["${file}", ">", "out.json"],
+            "args": ["${file}", ">", ".out.json"],
             "group": {
                 "kind": "build",
                 "isDefault": true
