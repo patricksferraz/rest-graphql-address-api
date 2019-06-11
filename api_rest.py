@@ -16,10 +16,10 @@ def index():
 
 
 @app.route("/state")
-@app.route("/state/<path:state>")
+@app.route("/state/<state>")
 def state(state=None):
     result = get_state(
-        state,
+        str(state),
         int(request.args.get("limit", 10)),
         int(request.args.get("page", 0)),
         cur,
@@ -27,8 +27,8 @@ def state(state=None):
     return jsonify(state_format(result))
 
 
-@app.route("/state/<path:state>/city")
-@app.route("/state/<path:state>/city/<path:city>")
+@app.route("/state/<state>/city")
+@app.route("/state/<state>/city/<city>")
 def city(id):
     cur.execute(
         # """
