@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from db.postgres import connect
 
 # app initialization
@@ -8,20 +8,34 @@ cur = con.cursor()
 # con.close()
 
 # Routes
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     return jsonify(api_name="rest-osm", version="1.0", author="Patrick Ferraz")
 
 
-@app.route("/state")
-def state():
-    cur.execute(
-        """
-        SELECT *
-        FROM planet_osm_line line WHERE name LIKE '%Bairro%' LIMIT 10;
-        """
-    )
-    result = cur.fetchall()
+@app.route("/state", methods=["GET"])
+@app.route("/state/<int:id>")
+def state(id=None):
+    if id:
+        sql = f"""
+            SELECT *
+            FROM estado WHERE id = {id};
+            """
+    else:
+        limit = int(request.args.get("limit", 10))
+        page = int(request.args.get("page", 0)) * limit
+
+        sql = f"""
+            SELECT *
+            FROM estado LIMIT {limit} OFFSET {page};
+            """
+
+    cur.execute(sql)
+
+    result = []
+    for r in cur.fetchall():
+        result.append({"id": r[0], "nome": r[1], "sigla": r[2]})
+
     return jsonify(result)
 
 

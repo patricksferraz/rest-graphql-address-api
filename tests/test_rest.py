@@ -11,10 +11,7 @@ payload = {"root": {}}
 #     headers=headers,
 #     json=payload["post-transfer"],
 # )
-print("{")
-root = requests.get(f"{URL}", headers=headers, params=payload["root"])
-print('"Balance":\n{},'.format(root.json()))
-
-street = requests.get(f"{URL}/state", headers=headers, params=payload["root"])
-print('"Street":\n{},'.format(street.json()))
-print("}")
+root = requests.get(
+    f"{URL}/state?limit=5&page=2", headers=headers, params=payload["root"]
+)
+print(root.json())
