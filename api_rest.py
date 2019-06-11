@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from db.postgres import connect
 from models.rest import get_state
+from utils.rest import state_format
 
 # app initialization
 app = Flask(__name__)
@@ -15,21 +16,19 @@ def index():
 
 
 @app.route("/state")
-@app.route("/state/<path:name>")
-def state(name=None):
+@app.route("/state/<path:state>")
+def state(state=None):
     result = get_state(
-        name,
+        state,
         int(request.args.get("limit", 10)),
         int(request.args.get("page", 0)),
         cur,
     )
-    result = list(
-        map(lambda r: {"id": r[0], "nome": r[1], "sigla": r[2]}, result)
-    )
-    return jsonify(result)
+    return jsonify(state_format(result))
 
 
-@app.route("/state/<id>/city")
+@app.route("/state/<path:state>/city")
+@app.route("/state/<path:state>/city/<path:city>")
 def city(id):
     cur.execute(
         # """

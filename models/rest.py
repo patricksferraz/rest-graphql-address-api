@@ -1,11 +1,11 @@
 from psycopg2.psycopg1 import cursor
 
 
-def get_state(name: str, limit: int, page: int, cur: cursor):
-    if name:
+def get_state(state: str, limit: int, page: int, cur: cursor):
+    if state:
         sql = f"""
             SELECT *
-            FROM estado WHERE nome ILIKE '%{name}%'
+            FROM estado WHERE nome ILIKE '%{state}%'
             LIMIT {limit} OFFSET {page * limit};
             """
     else:
