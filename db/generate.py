@@ -5,7 +5,6 @@ import subprocess
 import argparse
 import pandas
 import json
-import os
 
 
 # construct the argument parser and parse the arguments
