@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from db.postgres import connect
+from models.rest import get_state
 
 # app initialization
 app = Flask(__name__)
@@ -8,34 +9,23 @@ cur = con.cursor()
 # con.close()
 
 # Routes
-@app.route("/", methods=["GET"])
+@app.route("/")
 def index():
     return jsonify(api_name="rest-osm", version="1.0", author="Patrick Ferraz")
 
 
-@app.route("/state", methods=["GET"])
-@app.route("/state/<int:id>")
-def state(id=None):
-    if id:
-        sql = f"""
-            SELECT *
-            FROM estado WHERE id = {id};
-            """
-    else:
-        limit = int(request.args.get("limit", 10))
-        page = int(request.args.get("page", 0)) * limit
-
-        sql = f"""
-            SELECT *
-            FROM estado LIMIT {limit} OFFSET {page};
-            """
-
-    cur.execute(sql)
-
-    result = []
-    for r in cur.fetchall():
-        result.append({"id": r[0], "nome": r[1], "sigla": r[2]})
-
+@app.route("/state")
+@app.route("/state/<path:name>")
+def state(name=None):
+    result = get_state(
+        name,
+        int(request.args.get("limit", 10)),
+        int(request.args.get("page", 0)),
+        cur,
+    )
+    result = list(
+        map(lambda r: {"id": r[0], "nome": r[1], "sigla": r[2]}, result)
+    )
     return jsonify(result)
 
 
