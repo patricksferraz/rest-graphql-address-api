@@ -13,7 +13,7 @@ def tables(path_in: str, struct_file: dict, con: connect):
 
             SQL = "CREATE TABLE {} (".format(key)
             for field in fields:
-                SQL += "{} {}".format(value, schema[field])
+                SQL += "{} {}".format(field, schema[field])
             SQL += ");"
 
             cur.execute(SQL)
