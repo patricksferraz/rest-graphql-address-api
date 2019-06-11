@@ -9,7 +9,7 @@
         "nome": "TEXT NOT NULL,",
         "id_estado": "INT NOT NULL REFERENCES estado(id)"
     },
-    "ceps": {
+    "place": {
         "cep": "INT NOT NULL PRIMARY KEY,",
         "logradouro": "TEXT NOT NULL,",
         "bairro": "TEXT NOT NULL,",
