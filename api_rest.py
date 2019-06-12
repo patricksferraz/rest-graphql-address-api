@@ -29,7 +29,7 @@ def state(state=None):
 
 @app.route("/state/<state>/city")
 @app.route("/state/<state>/city/<city>")
-def city(state, city=None):
+def city(state, city="%"):
     result = get_city(
         {"state": state, "city": city},
         int(request.args.get("limit", 10)),
