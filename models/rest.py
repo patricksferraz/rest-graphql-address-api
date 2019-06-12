@@ -55,7 +55,8 @@ def get_city(data: dict, limit: int, page: int, cur: cursor) -> list:
             LIMIT {limit} OFFSET {page * limit}) as ci
             ON es.id = ci.id_estado
         WHERE es.nome ILIKE '%{data["state"]}%'
-        GROUP BY es.id, es.nome, es.sigla;
+        GROUP BY es.id, es.nome, es.sigla
+        ORDER BY es.nome ASC;
         """
 
     cur.execute(sql)
