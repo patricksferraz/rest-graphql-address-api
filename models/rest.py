@@ -13,19 +13,12 @@ def get_state(state: str, limit: int, page: int, cur: cursor) -> list:
     Returns:
         list -- all states from database
     """
-    if state:
-        sql = f"""
-            SELECT id, nome, sigla
-            FROM estado WHERE nome ILIKE '%{state}%'
-            ORDER BY nome
-            LIMIT {limit} OFFSET {page * limit};
-            """
-    else:
-        sql = f"""
-            SELECT id, nome, sigla
-            FROM estado LIMIT {limit} OFFSET {page * limit}
-            ORDER BY nome;
-            """
+    sql = f"""
+        SELECT id, nome, sigla
+        FROM estado WHERE nome ILIKE '%{state}%'
+        ORDER BY nome
+        LIMIT {limit} OFFSET {page * limit};
+        """
 
     cur.execute(sql)
     return cur.fetchall()

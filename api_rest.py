@@ -17,7 +17,7 @@ def index():
 
 @app.route("/state")
 @app.route("/state/<state>")
-def state(state=None):
+def state(state="%"):
     result = get_state(
         state,
         int(request.args.get("limit", 10)),
