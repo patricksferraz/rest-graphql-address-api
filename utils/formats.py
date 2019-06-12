@@ -21,9 +21,25 @@ def _format_n1(tuple: list):
     return result
 
 
-def state_format(states: list):
+def state_format(states: list) -> list:
+    """Return all states formated as a dictionary
+
+    Arguments:
+        states {list} -- List of states retuned of database
+
+    Returns:
+        list -- states formated
+    """
     return list(map(_format_n0, states))
 
 
-def city_format(cities: list):
+def city_format(cities: list) -> list:
+    """Return all cities formated as a dictionary
+
+    Arguments:
+        cities {list} -- List of cities retuned of database
+
+    Returns:
+        list -- cities formated
+    """
     return list(map(_format_n0, cities))
