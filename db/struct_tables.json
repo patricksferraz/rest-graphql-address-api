@@ -2,7 +2,7 @@
     "estado": {
         "id": "INT NOT NULL PRIMARY KEY,",
         "nome": "TEXT NOT NULL,",
-        "singla": "TEXT NOT NULL"
+        "sigla": "TEXT NOT NULL"
     },
     "cidade": {
         "id": "INT NOT NULL PRIMARY KEY,",
