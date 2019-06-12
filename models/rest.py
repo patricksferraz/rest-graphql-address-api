@@ -1,7 +1,18 @@
 from psycopg2.psycopg1 import cursor
 
 
-def get_state(state: str, limit: int, page: int, cur: cursor):
+def get_state(state: str, limit: int, page: int, cur: cursor) -> list:
+    """Return all states of postgres database
+
+    Arguments:
+        state {str} -- State name for search
+        limit {int} -- Results limit
+        page {int} -- Results page
+        cur {cursor} -- Cursor postgres for database
+
+    Returns:
+        list -- all states from database
+    """
     if state:
         sql = f"""
             SELECT id, nome, sigla
@@ -20,7 +31,19 @@ def get_state(state: str, limit: int, page: int, cur: cursor):
     return cur.fetchall()
 
 
-def get_city(data: dict, limit: int, page: int, cur: cursor):
+def get_city(data: dict, limit: int, page: int, cur: cursor) -> list:
+    """Return all cities of postgres database
+
+    Arguments:
+        data {dict} -- Dictionary with {"state": state, "city": city}
+            key-value pair
+        limit {int} -- Results limit by state
+        page {int} -- Results page
+        cur {cursor} -- Cursor postgres for database
+
+    Returns:
+        list -- all cities from database
+    """
     if data["city"]:
         sql = f"""
             SELECT es.id,
