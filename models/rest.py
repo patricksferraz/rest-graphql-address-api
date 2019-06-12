@@ -54,7 +54,6 @@ def get_city(data: dict, limit: int, page: int, cur: cursor) -> list:
             ORDER BY c.nome ASC
             LIMIT {limit} OFFSET {page * limit}) as ci
             ON es.id = ci.id_estado
-        WHERE es.nome ILIKE '%{data["state"]}%'
         GROUP BY es.id, es.nome, es.sigla
         ORDER BY es.nome ASC;
         """
