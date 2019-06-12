@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from db.postgres import connect
-from models.rest import get_state
-from utils.formats import state_format
+from models.rest import get_state, get_city
+from utils.formats import state_format, city_format
 
 # app initialization
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def index():
 @app.route("/state/<state>")
 def state(state=None):
     result = get_state(
-        str(state),
+        state,
         int(request.args.get("limit", 10)),
         int(request.args.get("page", 0)),
         cur,
@@ -29,15 +29,14 @@ def state(state=None):
 
 @app.route("/state/<state>/city")
 @app.route("/state/<state>/city/<city>")
-def city(id):
-    cur.execute(
-        # """
-        # SELECT *
-        # FROM planet_osm_line line WHERE name LIKE '%Bairro%' LIMIT 10;
-        # """
+def city(state, city=None):
+    result = get_city(
+        {"state": state, "city": city},
+        int(request.args.get("limit", 10)),
+        int(request.args.get("page", 0)),
+        cur,
     )
-    result = cur.fetchall()
-    return jsonify(result)
+    return jsonify(city_format(result))
 
 
 @app.route("/state/<id_state>/city/<id_city>/neighborhood")
