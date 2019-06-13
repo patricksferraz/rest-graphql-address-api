@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from db.postgres import connect
-from models.rest import get_state, get_city
-from utils.formats import state_format, city_format
+from models.rest import get_state, get_city, get_place
+from utils.formats import state_format, city_format, place_format
 
 # app initialization
 app = Flask(__name__)
@@ -39,29 +39,13 @@ def city(state, city="%"):
     return jsonify(city_format(result))
 
 
-@app.route("/state/<id_state>/city/<id_city>/neighborhood")
-def neighborhood(id_state, id_city):
-    cur.execute(
-        # """
-        # SELECT *
-        # FROM planet_osm_line line WHERE name LIKE '%Bairro%' LIMIT 10;
-        # """
+@app.route("/state/<state>/city/<city>/place")
+@app.route("/state/<state>/city/<city>/place/<place>")
+def neighborhood(state, city, place="%"):
+    result = get_place(
+        {"state": state, "city": city, "place": place},
+        int(request.args.get("limit", 10)),
+        int(request.args.get("page", 0)),
+        cur,
     )
-    result = cur.fetchall()
-    return jsonify(result)
-
-
-# line (logradouro), point (bairro), polygon, roads
-# estado, cidade, bairro, rua
-@app.route(
-    "/state/<id_state>/city/<id_city>/neighborhood/<id_neighborhood>/place"
-)
-def place(id_state, id_city, id_neighborhood):
-    cur.execute(
-        # """
-        # SELECT *
-        # FROM planet_osm_line line WHERE name LIKE '%Bairro%' LIMIT 10;
-        # """
-    )
-    result = cur.fetchall()
-    return jsonify(result)
+    return jsonify(place_format(result))
