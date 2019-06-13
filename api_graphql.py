@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask_graphql import GraphQLView
 from db.postgres import connect
+import models.graphql_model as gm
 import graphene
 
 # app initialization
