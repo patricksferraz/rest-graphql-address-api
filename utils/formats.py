@@ -1,12 +1,12 @@
 def _format_n0(tuple: list):
     result = {}
 
-    result["id_estado"] = tuple[0]
-    result["nome_estado"] = tuple[1]
-    result["sigla_estado"] = tuple[2]
+    result["id"] = tuple[0]
+    result["name"] = tuple[1]
+    result["acronym"] = tuple[2]
 
     if len(tuple) > 3:
-        result["cidades"] = list(map(_format_n1, tuple[3]))
+        result["cities"] = list(map(_format_n1, tuple[3]))
 
     return result
 
@@ -14,9 +14,9 @@ def _format_n0(tuple: list):
 def _format_n1(tuple: list):
     result = {}
 
-    result["id_cidade"] = int(tuple[0])
-    result["id_estado"] = int(tuple[1])
-    result["nome_cidade"] = tuple[2]
+    result["id"] = int(tuple[0])
+    result["id_state"] = int(tuple[1])
+    result["nome"] = tuple[2]
 
     if len(tuple) > 3:
         result["places"] = list(map(_format_n2, tuple[3].split(";")))
@@ -29,10 +29,10 @@ def _format_n2(tuple: list):
     tuple = tuple.split(",")
 
     result["cep"] = int(tuple[0])
-    result["id_estado"] = int(tuple[1])
-    result["id_cidade"] = int(tuple[2])
-    result["bairro"] = tuple[3]
-    result["logradouro"] = tuple[4]
+    result["id_state"] = int(tuple[1])
+    result["id_city"] = int(tuple[2])
+    result["district"] = tuple[3]
+    result["public_place"] = tuple[4]
 
     return result
 
