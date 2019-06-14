@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
 from flask_graphql import GraphQLView
 from db.postgres import connect
-import models.graphql_model as gm
-import graphene
+from models.gp_schemas import State
+from utils.gp_formats import state_format
+from graphene import ObjectType, Int, String, List, Schema
+import models.db_models as db
 
 # app initialization
 app = Flask(__name__)
@@ -12,21 +14,20 @@ cur = con.cursor()
 
 
 # Schema Objects
-class Query(graphene.ObjectType):
-    pass
+class Query(ObjectType):
+    get_state = List(
+        State,
+        name=String(default_value="%"),
+        limit=Int(default_value=10),
+        page=Int(default_value=0),
+    )
+
+    def resolve_get_state(_, info, name, limit, page):
+        states = db.get_state(name, limit, page, cur)
+        return state_format(states)
 
 
-#     name = graphene.String()
-#     version = graphene.String()
-
-#     def resolve_name(_, info):
-#         return "My API"
-
-#     def resolve_version(_, info):
-#         return "v1.0"
-
-
-schema = graphene.Schema(query=Query)
+schema = Schema(query=Query)
 
 # Routes
 app.add_url_rule(
@@ -41,4 +42,6 @@ app.add_url_rule(
 
 @app.route("/")
 def index():
-    return jsonify(api_name="rest-osm", version="1.0", author="Patrick Ferraz")
+    return jsonify(
+        api_name="graphql-address", version="1.0", author="Patrick Ferraz"
+    )
