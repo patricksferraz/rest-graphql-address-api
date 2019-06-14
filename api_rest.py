@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from db.postgres import connect
 from models.db_models import get_state, get_city, get_place
-from utils.formats import state_format, city_format, place_format
+from utils.formats import _format
 
 # app initialization
 app = Flask(__name__)
@@ -26,7 +26,7 @@ def state(state="%"):
         int(request.args.get("page", 0)),
         cur,
     )
-    return jsonify(state_format(result))
+    return jsonify(_format(result))
 
 
 @app.route("/state/<state>/city")
@@ -38,7 +38,7 @@ def city(state, city="%"):
         int(request.args.get("page", 0)),
         cur,
     )
-    return jsonify(city_format(result))
+    return jsonify(_format(result))
 
 
 @app.route("/state/<state>/city/<city>/place")
@@ -50,4 +50,4 @@ def neighborhood(state, city, place="%"):
         int(request.args.get("page", 0)),
         cur,
     )
-    return jsonify(place_format(result))
+    return jsonify(_format(result))

@@ -37,37 +37,13 @@ def _format_n2(tuple: list):
     return result
 
 
-def state_format(states: list) -> list:
-    """Return all states formated as a dictionary
+def _format(addresses: list) -> list:
+    """Return all addresses formated as a dictionary
 
     Arguments:
-        states {list} -- List of states retuned of database
+        addresses {list} -- List of addresses retuned of database
 
     Returns:
-        list -- states formated
+        list -- addresses formated
     """
-    return list(map(_format_n0, states))
-
-
-def city_format(cities: list) -> list:
-    """Return all cities formated as a dictionary
-
-    Arguments:
-        cities {list} -- List of cities retuned of database
-
-    Returns:
-        list -- cities formated
-    """
-    return list(map(_format_n0, cities))
-
-
-def place_format(places: list) -> list:
-    """Return all places formated as a dictionary
-
-    Arguments:
-        places {list} -- List of places retuned of database
-
-    Returns:
-        list -- places formated
-    """
-    return list(map(_format_n0, places))
+    return list(map(_format_n0, addresses))
