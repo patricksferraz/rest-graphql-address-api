@@ -1,14 +1,17 @@
-from graphene import Int, ObjectType, String
+from graphene import Int, ObjectType, String, List
+
+
+class City(ObjectType):
+    id = Int(required=True)
+    id_state = Int(required=True)
+    name = String(required=True)
 
 
 class State(ObjectType):
     id = Int(required=True)
     name = String(required=True)
     acronym = String(required=True)
-
-
-class City(ObjectType):
-    pass
+    cities = List(City)
 
 
 class Place(ObjectType):
