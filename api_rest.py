@@ -12,7 +12,9 @@ cur = con.cursor()
 # Routes
 @app.route("/")
 def index():
-    return jsonify(api_name="rest-osm", version="1.0", author="Patrick Ferraz")
+    return jsonify(
+        api_name="rest-address", version="1.0", author="Patrick Ferraz"
+    )
 
 
 @app.route("/state")
