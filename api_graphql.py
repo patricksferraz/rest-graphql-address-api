@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_graphql import GraphQLView
 from db.postgres import connect
 from models.gp_schemas import State
-from utils.gp_formats import city_format
+from utils.gp_formats import state_format
 from graphene import ObjectType, Int, String, List, Schema
 import models.db_models as db
 
@@ -18,16 +18,17 @@ class Query(ObjectType):
     get_state = List(
         State,
         name=String(default_value="%"),
-        name_city=String(default_value="%"),
+        city=String(default_value="%"),
+        place=String(default_value="%"),
         limit=Int(default_value=10),
         page=Int(default_value=0),
     )
 
-    def resolve_get_state(_, info, name, name_city, limit, page):
-        cities = db.get_city(
-            {"state": name, "city": name_city}, limit, page, cur
+    def resolve_get_state(_, info, name, city, place, limit, page):
+        places = db.get_place(
+            {"state": name, "city": city, "place": place}, limit, page, cur
         )
-        return city_format(cities)
+        return state_format(places)
 
 
 schema = Schema(query=Query)

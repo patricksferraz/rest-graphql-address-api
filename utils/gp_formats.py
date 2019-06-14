@@ -1,4 +1,4 @@
-from models.gp_schemas import State, City
+from models.gp_schemas import State, City, Place
 
 
 def _format_n0(tuple: list):
@@ -13,16 +13,33 @@ def _format_n0(tuple: list):
 def _format_n1(tuple: list):
     city = City(id=tuple[0], id_state=tuple[1], name=tuple[2])
 
+    if len(tuple) > 3:
+        city.places = list(map(_format_n2, tuple[3].split(";")))
+
     return city
 
 
-def city_format(cities: list) -> list:
-    """Return all states and cities formated as a dictionary
+def _format_n2(tuple: list):
+    tuple = tuple.split(",")
+
+    place = Place(
+        cep=tuple[0],
+        id_state=tuple[1],
+        id_city=tuple[2],
+        district=tuple[3],
+        public_place=tuple[4],
+    )
+
+    return place
+
+
+def state_format(states: list) -> list:
+    """Return all states formated as a dictionary
 
     Arguments:
-        cities {list} -- List of cities retuned of database
+        states {list} -- List of states retuned of database
 
     Returns:
-        list -- cities formated
+        list -- states formated
     """
-    return list(map(_format_n0, cities))
+    return list(map(_format_n0, states))
