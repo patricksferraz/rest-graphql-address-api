@@ -15,7 +15,7 @@ def _format_n1(tuple: list):
     result = {}
 
     result["id"] = int(tuple[0])
-    result["id_state"] = int(tuple[1])
+    result["idState"] = int(tuple[1])
     result["nome"] = tuple[2]
 
     if len(tuple) > 3:
@@ -29,10 +29,10 @@ def _format_n2(tuple: list):
     tuple = tuple.split(",")
 
     result["cep"] = int(tuple[0])
-    result["id_state"] = int(tuple[1])
-    result["id_city"] = int(tuple[2])
+    result["idState"] = int(tuple[1])
+    result["idCity"] = int(tuple[2])
     result["district"] = tuple[3]
-    result["public_place"] = tuple[4]
+    result["publicPlace"] = tuple[4]
 
     return result
 
