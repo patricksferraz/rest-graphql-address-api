@@ -1,25 +1,50 @@
+import utils as u
 import requests
+import json
 
 URL = "http://127.0.0.1:5000"
+LIMIT = 20000
+headers = u.HEADERS
 
-headers = {"content-type": "application/json"}
 
 # STATE
-response = []
-response.append(requests.get(f"{URL}/state", headers=headers))
-response.append(requests.get(f"{URL}/state/Ba", headers=headers))
+def req_local_scope():
+    requests.get(f"{URL}/state?limit={LIMIT}", headers=headers)
+
 
 # CITY
-response.append(requests.get(f"{URL}/state/ba/city", headers=headers))
-response.append(requests.get(f"{URL}/state/ba/city/itabuna", headers=headers))
+def req_border_scope():
+    requests.get(f"{URL}/state/%/city?limit={LIMIT}", headers=headers)
+
 
 # PLACE
-response.append(
-    requests.get(f"{URL}/state/ba/city/itabuna/place", headers=headers)
-)
-response.append(
-    requests.get(f"{URL}/state/ba/city/itabuna/place/45607336", headers=headers)
-)
+def req_global_scope():
+    requests.get(f"{URL}/state/%/city/%/place?limit={LIMIT}", headers=headers)
 
-for r in response:
-    print(f"{r.json()}\n\n")
+
+request = [
+    {
+        "url": f"{URL}/state?limit={LIMIT}",
+        "function": req_local_scope,
+        "scope": "local",
+        "blockSize": "min | med | max",
+    },
+    {
+        "url": f"{URL}/state/%/city?limit={LIMIT}",
+        "function": req_border_scope,
+        "scope": "border",
+        "blockSize": "min | med | max",
+    },
+    {
+        "url": f"{URL}/state/%/city/%/place?limit={LIMIT}",
+        "function": req_global_scope,
+        "scope": "global",
+        "blockSize": "min | med | max",
+    },
+]
+
+response = []
+out = open("log_test_rest.out.json", "w")
+for r in u._exec(request):
+    response.append(r)
+out.write(json.dumps(response))

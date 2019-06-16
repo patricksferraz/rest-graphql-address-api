@@ -1,0 +1,20 @@
+[
+    {
+        "scope": "local",
+        "blockSize": "min | med | max",
+        "size": "1966",
+        "time": 0.006822457570160622
+    },
+    {
+        "scope": "border",
+        "blockSize": "min | med | max",
+        "size": "1092575",
+        "time": 0.6226692016901506
+    },
+    {
+        "scope": "global",
+        "blockSize": "min | med | max",
+        "size": "4232448",
+        "time": 3.427497715260033
+    }
+]
