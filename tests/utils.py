@@ -1,4 +1,3 @@
-from statistics import mean
 import requests
 import timeit
 
@@ -27,5 +26,5 @@ def _exec(operations, set):
             "scope": o["scope"],
             "blockSize": o["blockSize"],
             "size": r["size"],
-            "time": mean(time),
+            "time": time,
         }
