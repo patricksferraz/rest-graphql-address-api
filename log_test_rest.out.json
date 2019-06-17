@@ -3,18 +3,18 @@
         "scope": "local",
         "blockSize": "min | med | max",
         "size": "1966",
-        "time": 0.006822457570160622
+        "time": 0.012580779410127434
     },
     {
         "scope": "border",
         "blockSize": "min | med | max",
         "size": "1092575",
-        "time": 0.6226692016901506
+        "time": 1.2428169630600314
     },
     {
         "scope": "global",
         "blockSize": "min | med | max",
         "size": "4232448",
-        "time": 3.427497715260033
+        "time": 3.757488407550336
     }
 ]

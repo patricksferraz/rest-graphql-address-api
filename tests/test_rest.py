@@ -25,18 +25,21 @@ def req_global_scope():
 request = [
     {
         "url": f"{URL}/state?limit={LIMIT}",
+        "payload": None,
         "function": req_local_scope,
         "scope": "local",
         "blockSize": "min | med | max",
     },
     {
         "url": f"{URL}/state/%/city?limit={LIMIT}",
+        "payload": None,
         "function": req_border_scope,
         "scope": "border",
         "blockSize": "min | med | max",
     },
     {
         "url": f"{URL}/state/%/city/%/place?limit={LIMIT}",
+        "payload": None,
         "function": req_global_scope,
         "scope": "global",
         "blockSize": "min | med | max",
@@ -45,6 +48,6 @@ request = [
 
 response = []
 out = open("log_test_rest.out.json", "w")
-for r in u._exec(request):
+for r in u._exec(request, 0):
     response.append(r)
 out.write(json.dumps(response))
