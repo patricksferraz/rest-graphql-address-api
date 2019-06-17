@@ -243,7 +243,7 @@ request = [
 ]
 
 response = []
-out = open("log_test_graphql.out.json", "w")
+out = open("out/log_test_graphql.out.json", "w")
 for r in u._exec(request, 1):
     response.append(r)
 out.write(json.dumps(response))

@@ -47,7 +47,7 @@ request = [
 ]
 
 response = []
-out = open("log_test_rest.out.json", "w")
+out = open("out/log_test_rest.out.json", "w")
 for r in u._exec(request, 0):
     response.append(r)
 out.write(json.dumps(response))
