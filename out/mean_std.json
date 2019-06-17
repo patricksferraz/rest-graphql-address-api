@@ -1,0 +1,86 @@
+[
+    {
+        "scope": "rest-local",
+        "blockSize": "min | med | max",
+        "mean": 0.00699157929033343,
+        "sd": 0.001399677038370616,
+        "mean current": 0.00699157929033343
+    },
+    {
+        "scope": "rest-border",
+        "blockSize": "min | med | max",
+        "mean": 0.4079306874105527,
+        "sd": 0.39142821941372735,
+        "mean current": 0.30514050403318155
+    },
+    {
+        "scope": "rest-global",
+        "blockSize": "min | med | max",
+        "mean": 3.8641061314004035,
+        "sd": 1.6387533128096012,
+        "mean current": 3.2016676112147078
+    },
+    {
+        "scope": "graphql-local-min",
+        "blockSize": "min | med | max",
+        "mean": 2.774390276240301,
+        "sd": 0.7472319593616371,
+        "mean current": 2.774390276240301
+    },
+    {
+        "scope": "graphql-local-med",
+        "blockSize": "min | med | max",
+        "mean": 2.8981324784999014,
+        "sd": 0.7050972024711125,
+        "mean current": 2.844395469267839
+    },
+    {
+        "scope": "graphql-local-max",
+        "blockSize": "min | med | max",
+        "mean": 2.883052542909645,
+        "sd": 0.6878103305211825,
+        "mean current": 2.791358945252202
+    },
+    {
+        "scope": "graphql-border-min",
+        "blockSize": "min | med | max",
+        "mean": 2.9094841182996607,
+        "sd": 0.7451660342016013,
+        "mean current": 2.812832926094339
+    },
+    {
+        "scope": "graphql-border-med",
+        "blockSize": "min | med | max",
+        "mean": 2.8898117599206308,
+        "sd": 0.6915208501737155,
+        "mean current": 2.760971944828525
+    },
+    {
+        "scope": "graphql-border-max",
+        "blockSize": "min | med | max",
+        "mean": 2.8530714533497665,
+        "sd": 0.7698848540345605,
+        "mean current": 2.6593246800774875
+    },
+    {
+        "scope": "graphql-global-min",
+        "blockSize": "min | med | max",
+        "mean": 4.361846215020123,
+        "sd": 2.3735941577747606,
+        "mean current": 3.726284877153895
+    },
+    {
+        "scope": "graphql-global-med",
+        "blockSize": "min | med | max",
+        "mean": 6.684652929339645,
+        "sd": 4.641929044698204,
+        "mean current": 5.119934367011191
+    },
+    {
+        "scope": "graphql-global-max",
+        "blockSize": "min | med | max",
+        "mean": 7.964499554849972,
+        "sd": 6.07549760365525,
+        "mean current": 5.351672762182805
+    }
+]
