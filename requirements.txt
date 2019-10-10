@@ -21,12 +21,10 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 mccabe==0.6.1
-mkl-fft==1.0.12
-mkl-random==1.0.2
 numpy==1.16.4
 pandas==0.24.2
 promise==2.2.1
-psycopg2==2.7.6.1
+psycopg2-binary==2.8.3
 pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
